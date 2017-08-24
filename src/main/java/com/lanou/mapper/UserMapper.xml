@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lanou.mapper.UserMapper">
+    <resultMap id="UserMap" type="User">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="level" column="level"/>
+        <result property="des" column="des"/>
+        <result property="password" column="password"/>
+        <result property="tel" column="tel"/>
+        <result property="address" column="address"/>
+    </resultMap>
+
+    <insert id="addUsers" useGeneratedKeys="true" keyProperty="id" parameterType="User">
+        INSERT INTO b_user VALUES (NULL , #{name}, #{level}, #{des}, #{password}, #{tel}, #{address})
+    </insert>
+
+    <select id="findUserByNameAndPass" resultMap="UserMap">
+        SELECT b.name, b.password FROM b_user b WHERE name=#{name} and password=#{password}
+    </select>
+
+</mapper>
+
+
