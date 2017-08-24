@@ -3,21 +3,12 @@ package com.lanou.bean;
 /**
  * Created by dllo on 17/8/23.
  */
-public class Glob {
+public class Blog {
     private Integer globId;
     private String globTitle;
     private String globDes;
     private String globContent;
-
-    @Override
-    public String toString() {
-        return "Glob{" +
-                "globId=" + globId +
-                ", globTitle='" + globTitle + '\'' +
-                ", globDes='" + globDes + '\'' +
-                ", globContent='" + globContent + '\'' +
-                '}';
-    }
+    private User user;
 
     public Integer getGlobId() {
         return globId;
@@ -49,5 +40,24 @@ public class Glob {
 
     public void setGlobContent(String globContent) {
         this.globContent = globContent;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Blog{" +
+                "globId=" + globId +
+                ", globTitle='" + globTitle + '\'' +
+                ", globDes='" + globDes + '\'' +
+                ", globContent='" + globContent + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

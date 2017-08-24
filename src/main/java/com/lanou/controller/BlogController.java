@@ -1,17 +1,23 @@
 package com.lanou.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.lanou.bean.Glob;
+import com.lanou.bean.Blog;
+import com.lanou.bean.User;
 import com.lanou.service.BlogService;
 import com.lanou.utils.MyException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by dllo on 17/8/23.
@@ -26,22 +32,55 @@ public class BlogController {
         return "blog/showBlog";
     }
 
-    @RequestMapping("getAllGlob")
+    @RequestMapping(value = "getAllGlob")
     @ResponseBody
-    public PageInfo<Glob> getAllGlob(@RequestParam("pageNum") Integer pageNum,
+    public PageInfo<Blog> getAllGlob(@RequestParam("pageNum") Integer pageNum,
                                      @RequestParam("pageSize") Integer pageSize,
-                                     HttpServletRequest request,
+                                     @RequestParam("search") String search,
                                      HttpSession session){
-        PageInfo<Glob> allGlog = null;
+        PageInfo<Blog> allGlog = null;
         try {
-            allGlog = glogService.getAllGlog(pageNum, pageSize);
+            System.out.println(search);
+            User loginUser = (User) session.getAttribute("loginUser");
+
+            allGlog = glogService.getAllGlog(pageNum, pageSize ,loginUser.getId(),search);
         } catch (MyException e) {
             e.printStackTrace();
         }
-        request.setAttribute("page",allGlog);
-        request.setAttribute("url","/getAllGlob");
-        session.setAttribute("msg","嘿嘿");
         return allGlog;
+    }
+
+
+    @RequestMapping("/addBlogPage")
+    public String page1(){
+        return "blog/addBlog";
+    }
+
+    @RequestMapping("/addBlog")
+    public String addBlog(Blog blog,
+                          HttpSession session){
+        User user = (User) session.getAttribute("loginUser");
+        try {
+            blog.setUser(user);
+            glogService.addBlog(blog);
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
+        return "blog/showBlog";
+    }
+    @RequestMapping(value = "/getBlogById")
+    public String getBlogById(@RequestParam("blogId") Integer blogId,
+                              ModelMap modelMap){
+        System.out.println(blogId);
+        try {
+            Blog blogById = glogService.getBlogById(blogId);
+            System.out.println(blogById);
+            modelMap.addAttribute("blog",blogById);
+            return "blog/blogDetail";
+        } catch (MyException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
