@@ -170,8 +170,7 @@
         var afterPage = result.hasNextPage ? afterLiTrue : afterLiFalse;
 
         $("#page").append(beforePage).append(pageSum).append(afterPage);
-
-
+        //
     }
 
     getAllGlob();
