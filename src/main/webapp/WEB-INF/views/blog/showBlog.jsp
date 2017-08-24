@@ -130,7 +130,9 @@
             success: function(result){
                 console.log(result);
                 var list =result.list;
-                showPage(result)
+                // 调用分页方法
+                // 传入两个参数,一个结果集,一个地址
+                showPage(result,"/getAllGlob")
                 for (var i = 0;i<list.length;i++){
                     showGlob(list[i].globId,list[i].globTitle,list[i].globDes,list[i].globContent);
                 }
@@ -144,32 +146,34 @@
         var th = $("<tr></tr>").append(td1).append(td2).append(td3);
         $("#tbody1").append(th);
     }
-    function showPage(result) {
+    function showPage(result,url) {
         // 上一页
         var beforeLiFalse = $("<li class='disabled'> <span> <span aria-hidden='true'>&laquo;</span> </span> </li>");
-        var beforeLiTrue = $("<li> <a href='' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a> </li>");
+        var beforeLiTrue = $("<li> <a href='" + url + "' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a> </li>");
         var beforePage = result.hasPreviousPage ? beforeLiTrue : beforeLiFalse;
+        $("#page").append(beforePage);
 
+        // 页码显示
         var pages = result.pages;
         alert(pages);
-        var pageSum = "";
         alert(result.pageNum)
-
-        for (var i = 0; i < pages.length ; i++){
-            var pageTrue = $("<li class='active'> <span><span class='sr-only'>(current)</span></span></li>").html(i);
-            var pageFalse = $("<li><a href='#'></a></li>").html(i);
-            alert(pageTrue)
-            alert(pageFalse)
+        for (var i = 1; i <= pages ; i++){
+            var pageTrue = $("<li class='active'> <span>" + i +"<span class='sr-only'>(current)</span></span></li>");
+            var pageFalse = $("<li><a href='" + url + "'>" + i + "</a></li>");
+            console.log(pageTrue)
+            console.log(pageFalse)
 
             var somePage = result.pageNum == i ? pageTrue : pageFalse;
-            pageSum += somePage;
+
+            $("#page").append(somePage);
         }
 
+        // 下一页
         var afterLiFalse = $("<li class='disabled'> <span> <span aria-hidden='true'>&raquo;</span> </span> </li>");
         var afterLiTrue = $("<li> <a href='' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a> </li>");
         var afterPage = result.hasNextPage ? afterLiTrue : afterLiFalse;
 
-        $("#page").append(beforePage).append(pageSum).append(afterPage);
+        $("#page").append(afterPage);
         //
     }
 
