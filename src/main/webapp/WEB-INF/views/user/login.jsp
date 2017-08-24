@@ -37,7 +37,8 @@
             </div>
 
             <button type="submit" class="btn btn-default">登录</button>
-            <button type="submit" class="btn btn-default" onclick="window.location.href='/registpage'">注册</button>
+            <a href="/registpage" class="btn btn-default">注册</a>
+        <%--<button type="submit" class="btn btn-default" onclick="window.location.href='/registpage'">注册</button>--%>
         </div>
     </div>
 

@@ -24,7 +24,7 @@ public class UserController {
 
     @RequestMapping(value = "/")
     public String loginPage() {
-        return "login";
+        return "user/login";
     }
 
     @RequestMapping(value = "/registpage")
