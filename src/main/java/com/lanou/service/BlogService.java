@@ -1,9 +1,8 @@
 package com.lanou.service;
 
 import com.github.pagehelper.PageInfo;
-import com.lanou.bean.Glob;
+import com.lanou.bean.Blog;
 import com.lanou.utils.MyException;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,5 +10,7 @@ import java.util.List;
  * Created by dllo on 17/8/23.
  */
 public interface BlogService {
-    PageInfo<Glob> getAllGlog(Integer pageNum,Integer pageSize) throws MyException;
+    PageInfo<Blog> getAllGlog(Integer pageNum, Integer pageSize ,Integer userId,String search) throws MyException;
+    void addBlog(Blog blog) throws MyException;
+    Blog getBlogById(Integer blogId) throws MyException;
 }

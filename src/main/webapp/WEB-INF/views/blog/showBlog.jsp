@@ -36,26 +36,18 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">新建博客</a></li>
+                    <li><a href="${pageContext.request.contextPath}/addBlogPage">新建博客</a></li>
                 </ul>
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="输入搜索的内容">
+                        <input type="text" id="search" class="form-control" placeholder="输入搜索的内容">
                     </div>
-                    <button type="submit" class="btn btn-default">提交</button>
+                    <button type="button" id="btn1" class="btn btn-default">提交</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">用户名</a></li>
+                    <li><a href="#">${loginUser.name}</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">切换用户 <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">切换用户</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -91,10 +83,14 @@
 </div>
 </body>
 <script>
-    function getAllGlob(pageNum,pageSize) {
+    function getAllGlob(pageNum,pageSize,search) {
+        if (search == null){
+            search = "";
+        }
         $.ajax({
             url:"/getAllGlob",
-            data:{"pageNum": pageNum, "pageSize": pageSize},
+            type:"get",
+            data:{"pageNum": pageNum, "pageSize": pageSize,"search":search},
             success: function (result) {
                 console.log(result);
                 var list = result.list;
@@ -102,7 +98,7 @@
                 // 传入两个参数,一个结果集,一个地址
                 $("#tbody1").html("");
                 $("#page").html("");
-                showPage(result, "/getAllGlob")
+                showPage(result, "/getAllGlob",search)
                 for (var i = 0; i < list.length; i++) {
                     showGlob(list[i].globId, list[i].globTitle, list[i].globDes, list[i].globContent);
                 }
@@ -110,17 +106,16 @@
         })
     }
     function showGlob(globId, globTitle, globDes, globContent) {
-        var td1 = $("<td width='135'>" + globTitle + "</td>");
+        var td1 = $("<td width='135'><a href='getBlogById?blogId=" + globId + "'> " + globTitle + " </a></td>");
         var td2 = $("<td width='135'>" + globDes + "</td>");
         var td3 = $("<td width='20'><a href='#'>删除</a></td>");
         var th = $("<tr></tr>").append(td1).append(td2).append(td3);
         $("#tbody1").append(th);
     }
-    function showPage(result, url) {
-
+    function showPage(result, url ,search) {
         // 上一页
         var beforeLiFalse = $("<li class='disabled'> <span> <span aria-hidden='true'>&laquo;</span> </span> </li>");
-        var beforeLiTrue = $("<li> <a href='#' onclick='getAllGlob("+ result.prePage +",5)' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a> </li>");
+        var beforeLiTrue = $("<li> <a href='#' onclick='getAllGlob("+ result.prePage +",5," + search + ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a> </li>");
         var beforePage = result.hasPreviousPage ? beforeLiTrue : beforeLiFalse;
         $("#page").append(beforePage);
 
@@ -128,7 +123,7 @@
         var pages = result.pages;
         for (var i = 1; i <= pages; i++) {
             var pageTrue = $("<li class='active'> <span>" + i + "<span class='sr-only'>(current)</span></span></li>");
-            var pageFalse = $("<li><a href='#' onclick='getAllGlob("+ i +",5)'>" + i + "</a></li>");
+            var pageFalse = $("<li><a href='#' onclick='getAllGlob("+ i +",5," + search + ")'>" + i + "</a></li>");
             var somePage = result.pageNum == i ? pageTrue : pageFalse;
 
             $("#page").append(somePage);
@@ -136,11 +131,16 @@
 
         // 下一页
         var afterLiFalse = $("<li class='disabled'> <span> <span aria-hidden='true'>&raquo;</span> </span> </li>");
-        var afterLiTrue = $("<li> <a href='#' onclick='getAllGlob(" + result.nextPage + ",5)' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a> </li>");
+        var afterLiTrue = $("<li> <a href='#' onclick='getAllGlob(" + result.nextPage + ",5," + search + ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a> </li>");
         var afterPage = result.hasNextPage ? afterLiTrue : afterLiFalse;
 
         $("#page").append(afterPage);
     }
+    $("#btn1").click(function () {
+        var val = $("#search").val();
+
+        getAllGlob("1","5",val);
+    })
 
     getAllGlob("1","5");
 </script>

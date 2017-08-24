@@ -1,6 +1,7 @@
 package com.lanou.mapper;
 
-import com.lanou.bean.Glob;
+import com.lanou.bean.Blog;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,5 +11,9 @@ import java.util.List;
  */
 @Repository
 public interface BlogMapper {
-    List<Glob> findAllGlob();
+    List<Blog> findAllGlob(@Param("userId") Integer userId,
+                           @Param("search") String search);
+    int insertGlob(Blog blog);
+    Blog findBlogById(@Param("globId") Integer globId);
+    List<Blog> findAllBlogBySearch(@Param("userId") Integer userId);
 }

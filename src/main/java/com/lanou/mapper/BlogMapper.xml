@@ -3,11 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lanou.mapper.BlogMapper">
-    <resultMap id="baseGlob" type="Glob">
+    <resultMap id="baseGlob" type="Blog">
         <id column="id" property="globId"/>
         <result column="title" property="globTitle"/>
         <result column="des" property="globDes"/>
         <result column="content" property="globContent"/>
+    </resultMap>
+
+    <resultMap id="globMap" type="Blog">
+        <id column="id" property="globId"/>
+        <result column="title" property="globTitle"/>
+        <result column="des" property="globDes"/>
+        <result column="content" property="globContent"/>
+        <association property="user" column="userId" select="com.lanou.mapper.UserMapper.findUserById"/>
     </resultMap>
 
     <sql id="baseSql">
@@ -16,6 +24,18 @@
     <select id="findAllGlob" resultMap="baseGlob">
         SELECT
         <include refid="baseSql"/>
-        FROM b_blog
+        FROM b_blog WHERE userId=#{userId} and (title like CONCAT(CONCAT('%', #{search}), '%') or des like CONCAT(CONCAT('%', #{search}), '%'))
+    </select>
+    <insert id="insertGlob" useGeneratedKeys="true" keyProperty="globId" parameterType="Blog">
+        INSERT INTO b_blog VALUES (NULL ,#{globTitle} ,#{globDes} ,#{globContent} ,#{user.id})
+    </insert>
+    <select id="findBlogById" resultMap="baseGlob" parameterType="integer">
+        SELECT id,title,des,content FROM b_blog WHERE id = #{globId}
+    </select>
+    <select id="findAllBlogBySearch" resultMap="globMap">
+        SELECT
+        <include refid="baseSql"/>
+        FROM b_blog WHERE userId=#{userId} and (title like CONCAT(CONCAT('%', #{search}), '%') or des like CONCAT(CONCAT('%', #{search}), '%'))
+
     </select>
 </mapper>
