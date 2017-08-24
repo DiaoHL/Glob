@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: dllo
@@ -5,7 +6,7 @@
   Time: 下午3:50
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="true" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 <head>
     <%--bootstrap模板框架基础--%>
@@ -14,6 +15,9 @@
     <title>博客页面</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+    <script>
+
+    </script>
 </head>
 <body>
 <div class="container-fluid">
@@ -78,15 +82,43 @@
                 <%--</tr>--%>
                 </tbody>
             </table>
-            <jsp:include page="../page.jsp"/>
-        </div>
-        <div class="col-md-2">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    Panel content方法方法付
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination" id="page">
+                            <%--<c:forEach begin="0" end="${page.pages}" var="i">--%>
+                                <%--<c:if test="${page.pageNum} == i">--%>
+                                    <%--<li class="active">--%>
+                                        <%--<span>${i} <span class="sr-only">(current)</span></span>--%>
+                                    <%--</li>--%>
+                                <%--</c:if>--%>
+                                <%--<c:if test="${page.pageNum} != i">--%>
+                                    <%--<li><a href="#">${i} </a></li>--%>
+                                <%--</c:if>--%>
+                            <%--</c:forEach>--%>
+
+                            <%--<c:if test="${page.hasNextPage == false}">--%>
+                                <%--<li class="disabled">--%>
+                                <%--<span>--%>
+                                    <%--<span aria-hidden="true">&raquo;</span>--%>
+                                <%--</span>--%>
+                                <%--</li>--%>
+                            <%--</c:if>--%>
+                            <%--<c:if test="${page.hasNextPage == true}">--%>
+                                <%--<li>--%>
+                                    <%--<a href="#" aria-label="Next">--%>
+                                        <%--<span aria-hidden="true">&raquo;</span>--%>
+                                    <%--</a>--%>
+                                <%--</li>--%>
+                            <%--</c:if>--%>
+                        </ul>
+                    </nav>
                 </div>
+                <div class="col-md-4"></div>
             </div>
         </div>
+        <div class="col-md-2"></div>
     </div>
 </div>
 </body>
@@ -96,8 +128,9 @@
             url:"/getAllGlob",
             data:{"pageNum":"1","pageSize":"5"},
             success: function(result){
-                console.log(result.list);
+                console.log(result);
                 var list =result.list;
+                showPage(result)
                 for (var i = 0;i<list.length;i++){
                     showGlob(list[i].globId,list[i].globTitle,list[i].globDes,list[i].globContent);
                 }
@@ -111,6 +144,35 @@
         var th = $("<tr></tr>").append(td1).append(td2).append(td3);
         $("#tbody1").append(th);
     }
+    function showPage(result) {
+        // 上一页
+        var beforeLiFalse = $("<li class='disabled'> <span> <span aria-hidden='true'>&laquo;</span> </span> </li>");
+        var beforeLiTrue = $("<li> <a href='' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a> </li>");
+        var beforePage = result.hasPreviousPage ? beforeLiTrue : beforeLiFalse;
+
+        var pages = result.pages;
+        alert(pages);
+        var pageSum = "";
+        alert(result.pageNum)
+
+        for (var i = 0; i < pages.length ; i++){
+            var pageTrue = $("<li class='active'> <span><span class='sr-only'>(current)</span></span></li>").html(i);
+            var pageFalse = $("<li><a href='#'></a></li>").html(i);
+            alert(pageTrue)
+            alert(pageFalse)
+
+            var somePage = result.pageNum == i ? pageTrue : pageFalse;
+            pageSum += somePage;
+        }
+
+        var afterLiFalse = $("<li class='disabled'> <span> <span aria-hidden='true'>&raquo;</span> </span> </li>");
+        var afterLiTrue = $("<li> <a href='' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a> </li>");
+        var afterPage = result.hasNextPage ? afterLiTrue : afterLiFalse;
+
+        $("#page").append(beforePage).append(pageSum).append(afterPage);
+        //
+    }
+
     getAllGlob();
 </script>
 </html>
