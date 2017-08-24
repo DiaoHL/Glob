@@ -3,8 +3,8 @@ package com.lanou.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lanou.bean.Glob;
-import com.lanou.mapper.GlogMapper;
-import com.lanou.service.GlogService;
+import com.lanou.mapper.BlogMapper;
+import com.lanou.service.BlogService;
 import com.lanou.utils.MyException;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +15,9 @@ import java.util.List;
  * Created by dllo on 17/8/23.
  */
 @Service
-public class GlogServiceImpl implements GlogService {
+public class BlogServiceImpl implements BlogService {
     @Resource
-    private GlogMapper glogMapper;
+    private BlogMapper glogMapper;
     public PageInfo<Glob> getAllGlog(Integer pageNum, Integer pageSize) throws MyException {
         pageNum = pageNum == null ? 1 : pageNum;
         pageSize = pageSize == null ? 5 : pageSize;

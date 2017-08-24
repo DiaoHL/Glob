@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lanou.mapper.GlogMapper">
+<mapper namespace="com.lanou.mapper.BlogMapper">
     <resultMap id="baseGlob" type="Glob">
         <id column="id" property="globId"/>
         <result column="title" property="globTitle"/>

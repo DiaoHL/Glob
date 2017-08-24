@@ -19,13 +19,13 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <mvc:interceptors>
-    <mvc:interceptor>
-    <mvc:mapping path="/**"/>
-    <mvc:exclude-mapping path="/login"/>
-    <!--<mvc:exclude-mapping path="/"/>-->
-    <bean class="com.lanou.interceptor.LoginInterceptor"/>
-    </mvc:interceptor>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+    <!--<mvc:interceptor>-->
+    <!--<mvc:mapping path="/**"/>-->
+    <!--<mvc:exclude-mapping path="/login"/>-->
+    <!--&lt;!&ndash;<mvc:exclude-mapping path="/"/>&ndash;&gt;-->
+    <!--<bean class="com.lanou.interceptor.LoginInterceptor"/>-->
+    <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
 </beans>
