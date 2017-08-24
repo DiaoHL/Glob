@@ -53,7 +53,7 @@ public class UserController {
         if (user != null){
             model.addAttribute(user);
             model.addAttribute("msg", "登录成功");
-            return "blog";
+            return "blog/showBlog";
         }else{
             return "redirect:registpage";
         }
