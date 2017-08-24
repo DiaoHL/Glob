@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -28,14 +30,18 @@ public class BlogController {
     @RequestMapping("getAllGlob")
     @ResponseBody
     public PageInfo<Glob> getAllGlob(@RequestParam("pageNum") Integer pageNum,
-                                 @RequestParam("pageSize") Integer pageSize){
+                                     @RequestParam("pageSize") Integer pageSize,
+                                     HttpServletRequest request,
+                                     HttpSession session){
         PageInfo<Glob> allGlog = null;
         try {
             allGlog = glogService.getAllGlog(pageNum, pageSize);
         } catch (MyException e) {
             e.printStackTrace();
         }
-
+        request.setAttribute("page",allGlog);
+        request.setAttribute("url","/getAllGlob");
+        session.setAttribute("msg","嘿嘿");
         return allGlog;
     }
 

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: dllo
@@ -12,11 +13,28 @@
     <div class="col-md-4">
         <nav aria-label="Page navigation">
             <ul class="pagination">
-                <li class="disabled">
+                <c:if test="${page.hasPreviousPage} == false">
+                    <li class="disabled">
                                 <span>
                                     <span aria-hidden="true">&laquo;</span>
                                 </span>
-                </li>
+                    </li>
+                </c:if>
+                <c:if test="${page.hasPreviousPage} == false">
+                    <li>
+                        <a href=""><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                </c:if>
+                <c:forEach begin="0" end="${page.pages}" var="i">
+                    <c:if test="${pageNum} == i">
+                        <li class="active">
+                            <span>${i} <span class="sr-only">(current)</span></span>
+                        </li>
+                    </c:if>
+                    <c:if test="${pageNum} != i">
+                        <li><a href="#">${i} </a></li>
+                    </c:if>
+                </c:forEach>
                 <li class="active">
                     <span>1 <span class="sr-only">(current)</span></span>
                 </li>
@@ -24,11 +42,21 @@
                 <li><a href="#">3 </a></li>
                 <li><a href="#">4 </a></li>
                 <li><a href="#">5 </a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+
+                <c:if test="${page.hasNextPage} == false">
+                    <li class="disabled">
+                                <span>
+                                    <span aria-hidden="true">&raquo;</span>
+                                </span>
+                    </li>
+                </c:if>
+                <c:if test="${page.hasNextPage == true}">
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </c:if>
             </ul>
         </nav>
     </div>
