@@ -22,7 +22,7 @@ public class BlogController {
     @Resource
     private GlogService glogService;
     // 和用户结合,登录成功跳转
-    @RequestMapping("/")
+    @RequestMapping("/bolopage")
     public String page(){
         return "blog/showBlog";
     }
