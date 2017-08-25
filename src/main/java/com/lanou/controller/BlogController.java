@@ -32,7 +32,7 @@ public class BlogController {
         return "blog/showBlog";
     }
 
-    @RequestMapping(value = "getAllGlob")
+    @RequestMapping(value = "/getAllGlob")
     @ResponseBody
     public PageInfo<Blog> getAllGlob(@RequestParam("pageNum") Integer pageNum,
                                      @RequestParam("pageSize") Integer pageSize,
