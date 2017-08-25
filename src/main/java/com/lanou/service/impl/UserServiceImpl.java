@@ -19,21 +19,27 @@ public class UserServiceImpl implements UserService {
     private UserMapper mapper;
 
     public void regist(User user) {
-//        user.setPassword(SpringUtil.getMD5Value(user.getPassword()));
+        user.setPassword(SpringUtil.getMD5Value(user.getPassword()));
         mapper.addUsers(user);
     }
 
 
     public User login(String name, String password) {
-//        SpringUtil.getMD5Value(password);
-        System.out.println(name + password);
-        User user = mapper.findUserByNameAndPass(name, password);
+        System.out.println("用户名:" + name + "密码: " + password);
+//       SpringUtil.getMD5Value(password);
+      User  user = mapper.findUserByNameAndPass(name, password);
+//        user.setPassword(SpringUtil.getMD5Value(password));
 
-        if (user.getPassword().equals(password)&& user.getName() != null){
+        if (user.getPassword().equals(password)&& user != null){
             System.out.println("登录成功!");
             return user;
         }
         return null;
+    }
+
+    public String findUserByName(String name) {
+        String byName = mapper.findUserByName(name);
+        return byName;
     }
 
 }

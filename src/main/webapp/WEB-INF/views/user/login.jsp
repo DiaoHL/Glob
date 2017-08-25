@@ -36,12 +36,35 @@
                 </label>
             </div>
 
-            <button type="submit" class="btn btn-default">登录</button>
+            <button type="submit" id="registbtn" class="btn btn-default">登录</button>
             <a href="/registpage" class="btn btn-default">注册</a>
+
         <%--<button type="submit" class="btn btn-default" onclick="window.location.href='/registpage'">注册</button>--%>
         </div>
     </div>
 
 </form>
 </body>
+
+<script>
+    function Login() {
+        $.ajax({
+            url:"/login",
+            data:{"string":"name","string":"password"},
+            success: function(result){
+                console.log(result);
+                var name =result.val();
+                var password = result.val();
+                if (name == null || password == null){
+                    $("#registbtn").click()
+                }else {
+
+                }
+            }
+        })
+    }
+
+    Login();
+</script>
+
 </html>

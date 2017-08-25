@@ -12,6 +12,28 @@
 
     <mvc:default-servlet-handler/>
 
+
+    <!--&lt;!&ndash;国际化配置&ndash;&gt;-->
+    <!--<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/>-->
+    <!--<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
+    <!--<property name="basenames">-->
+    <!--<list>-->
+    <!--<value>classpath:ValidationMessages</value>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--<property name="useCodeAsDefaultMessage" value="true"/>-->
+    <!--</bean>-->
+
+    <!--注册验证器-->
+    <mvc:annotation-driven validator="validator"/>
+
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+    <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+    <!--这里配置将使用上面国际化配置的messageSource-->
+    <!--<property name="validationMessageSource" ref="messageSource"/>-->
+    </bean>
+
+
     <bean id="jspViewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
@@ -19,13 +41,14 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <mvc:interceptors>
-    <mvc:interceptor>
-    <mvc:mapping path="/**"/>
-    <mvc:exclude-mapping path="/login"/>
-    <!--<mvc:exclude-mapping path="/"/>-->
-    <bean class="com.lanou.interceptor.LoginInterceptor"/>
-    </mvc:interceptor>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<mvc:exclude-mapping path="/login"/>-->
+            <!--<mvc:exclude-mapping path="/"/>-->
+            <!--<mvc:exclude-mapping path="/registpage"/>-->
+            <!--<bean class="com.lanou.interceptor.LoginInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
 </beans>
