@@ -108,7 +108,7 @@
     function showGlob(globId, globTitle, globDes, globContent) {
         var td1 = $("<td width='135'><a href='getBlogById?blogId=" + globId + "'> " + globTitle + " </a></td>");
         var td2 = $("<td width='135'>" + globDes + "</td>");
-        var td3 = $("<td width='20'><a href='#'>删除</a></td>");
+        var td3 = $("<td width='20'><a href='#' onclick='delBlog("+ globId +")'>删除</a></td>");
         var th = $("<tr></tr>").append(td1).append(td2).append(td3);
         $("#tbody1").append(th);
     }
@@ -141,6 +141,20 @@
 
         getAllGlob("1","5",val);
     })
+    function delBlog(blogId) {
+        $.ajax({
+            url:"/delBlogById",
+            data:{"blogId":blogId},
+            success:function (result) {
+                if (result == "success"){
+                    alert("删除成功")
+                    getAllGlob("1","5");
+                }else{
+                    alert("删除失败")
+                }
+            }
+        })
+    }
 
     getAllGlob("1","5");
 </script>

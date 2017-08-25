@@ -13,4 +13,5 @@ public interface BlogService {
     PageInfo<Blog> getAllGlog(Integer pageNum, Integer pageSize ,Integer userId,String search) throws MyException;
     void addBlog(Blog blog) throws MyException;
     Blog getBlogById(Integer blogId) throws MyException;
+    void delblogById(Integer blogId) throws MyException;
 }

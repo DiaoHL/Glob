@@ -82,6 +82,19 @@ public class BlogController {
             return null;
         }
     }
+    @RequestMapping("/delBlogById")
+    @ResponseBody
+    public String delBlogById(@RequestParam("blogId") Integer blogId){
+        try {
+            glogService.delblogById(blogId);
+            return "success";
+        } catch (MyException e) {
+            e.printStackTrace();
+            return "error";
+        }
+
+    }
+
 
 
 }

@@ -38,4 +38,7 @@
         FROM b_blog WHERE userId=#{userId} and (title like CONCAT(CONCAT('%', #{search}), '%') or des like CONCAT(CONCAT('%', #{search}), '%'))
 
     </select>
+    <delete id="removeBlogById" parameterType="integer">
+        DELETE FROM b_blog WHERE id = #{globId}
+    </delete>
 </mapper>

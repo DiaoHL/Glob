@@ -16,4 +16,5 @@ public interface BlogMapper {
     int insertGlob(Blog blog);
     Blog findBlogById(@Param("globId") Integer globId);
     List<Blog> findAllBlogBySearch(@Param("userId") Integer userId);
+    int removeBlogById(@Param("globId") Integer globId);
 }

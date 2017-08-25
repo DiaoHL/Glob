@@ -49,5 +49,12 @@ public class BlogServiceImpl implements BlogService {
         return blogById;
     }
 
+    public void delblogById(Integer blogId) throws MyException {
+        int i = glogMapper.removeBlogById(blogId);
+        if (i == 0){
+            throw new MyException("删除微博失败");
+        }
+    }
+
 
 }
