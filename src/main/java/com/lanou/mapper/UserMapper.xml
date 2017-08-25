@@ -20,7 +20,10 @@
     </insert>
 
     <select id="findUserByNameAndPass" resultMap="UserMap">
-        SELECT b.name, b.password FROM b_user b WHERE name=#{name} and password=#{password}
+        SELECT * FROM b_user b WHERE name=#{name} and password=#{password}
+    </select>
+    <select id="findUserById" resultMap="UserMap" parameterType="integer">
+        SELECT * FROM b_user where id = #{userId}
     </select>
 
     <select id="findUserByName" resultMap="UserMap">

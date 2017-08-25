@@ -49,6 +49,12 @@
             <!--<mvc:exclude-mapping path="/registpage"/>-->
             <!--<bean class="com.lanou.interceptor.LoginInterceptor"/>-->
         <!--</mvc:interceptor>-->
+    <!--<mvc:interceptor>-->
+    <!--<mvc:mapping path="/**"/>-->
+    <!--<mvc:exclude-mapping path="/login"/>-->
+    <!--&lt;!&ndash;<mvc:exclude-mapping path="/"/>&ndash;&gt;-->
+    <!--<bean class="com.lanou.interceptor.LoginInterceptor"/>-->
+    <!--</mvc:interceptor>-->
     <!--</mvc:interceptors>-->
 
 </beans>

@@ -43,7 +43,7 @@
             </div>
 
             <div class="form-group">
-                <label for="repassword">重置密码</label>
+                <label for="repassword">确认密码</label>
                 <input type="password" class="form-control" id="repassword" name="repassword" placeholder="请再次输入密码">
                 <%--<form:errors path="password" cssStyle="color: red">两次密码不一致</form:errors>--%>
             </div>

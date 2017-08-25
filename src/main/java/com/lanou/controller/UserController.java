@@ -59,15 +59,15 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login")
-//    @ResponseBody
-    public String login(String name, String password, Model model) {
+    public String login(String name, String password, Model model, HttpSession session) {
 
         User user = userService.login(name, password);
-        if (user != null) {
+        if (user != null){
+            session.setAttribute("loginUser",user);
             model.addAttribute(user);
             model.addAttribute("msg", "登录成功");
             return "blog/showBlog";
-        } else {
+        }else{
             return "redirect:registpage";
         }
 //        return user;
