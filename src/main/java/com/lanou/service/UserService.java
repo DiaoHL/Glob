@@ -11,4 +11,7 @@ public interface UserService {
 
     //用户登录
     User login(String name, String password);
+
+    //判断注册重名
+    String findUserByName(String name);
 }

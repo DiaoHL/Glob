@@ -12,11 +12,11 @@ import java.util.UUID;
  */
 public class SpringUtil {
 
-    public static ApplicationContext context;
-
-    static {
-        context = new ClassPathXmlApplicationContext("spring/spring-config.xml");
-    }
+//    public static ApplicationContext context;
+//
+//    static {
+//        context = new ClassPathXmlApplicationContext("spring/spring-config.xml");
+//    }
 
     public static String getMD5Value(String loginPwd) {
 

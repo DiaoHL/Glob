@@ -17,6 +17,8 @@ public interface UserMapper {
     //根据用户名和密码查询用户
     User findUserByNameAndPass(@Param("name")String name, @Param("password")String password);
 
+   String findUserByName(@Param("name")String name);
+  
     // 用于blog表的一多关系
     User findUserById(@Param("userId") Integer userId);
 
